@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
         return Integer.valueOf(rateBtnText.replace("%", ""));        
     }
     
-    public void render(Double tip) {
+    private void _render(Double tip) {
         DecimalFormat formatter = new DecimalFormat("Tip is: $0.00");
         String tipString = formatter.format(tip);
         _vtTotalAmt.setText(tipString);
@@ -86,8 +86,7 @@ public class MainActivity extends Activity {
             inputAmt = Double.valueOf(inputAmtStr);
         }
         Double tip = inputAmt * _selectedRate * 0.01;
-        
-        render(tip);
+        _render(tip);
     }
     
     public void calcTip(View v) {
@@ -105,9 +104,11 @@ public class MainActivity extends Activity {
     
     public void autoReCalcTipWithCustomRateChanged() {
         String customRateStr = _etCustomRate.getText().toString();
+        Integer customRate = 0;
         if (!customRateStr.isEmpty()) {
-            _selectedRate = Integer.valueOf(customRateStr);
-            autoReCalcTip();
+            customRate = Integer.valueOf(customRateStr);
         }
+        _selectedRate = customRate;
+        autoReCalcTip();
     }
 }
